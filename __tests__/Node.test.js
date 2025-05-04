@@ -1,37 +1,29 @@
-import Node from "../src/Node";
+import { Node } from "../src/Node.js";
 
 describe("Node", () => {
-	let defaultNode;
-	let headNode;
+	const position = [2, 3];
+	const path = [
+		[0, 0],
+		[1, 2],
+	];
+
+	let node;
 
 	beforeEach(() => {
-		defaultNode = new Node();
-		headNode = new Node("dog");
+		node = new Node(position, path);
 	});
 
-	it("should initialise 'entry' and 'next' as null by default", () => {
-		expect(defaultNode.entry).toBeNull();
-		expect(defaultNode.next).toBeNull();
+	it("should initialise with a position and default path", () => {
+		const newNode = new Node(position);
+		expect(newNode.position).toEqual(position);
+		expect(newNode.path).toEqual([position]);
 	});
-	it("should correctly set a entry when provided", () => {
-		expect(headNode.entry).toBe("dog");
-		expect(headNode.next).toBeNull();
+	it("should build a path based on previous path and current position", () => {
+		expect(node.position).toEqual(position);
+		expect(node.path).toEqual([...path, position]);
 	});
-	describe("setNode", () => {
-		it("defines setNode()", () => {
-			expect(typeof defaultNode.setNext).toBe("function");
-		});
-		it("returns undefined when called", () => {
-			expect(defaultNode.setNext(headNode)).toBeUndefined();
-		});
-		it("should link to another node with the next property", () => {
-			headNode.setNext(defaultNode);
-			expect(headNode.next).toEqual(defaultNode);
-		});
-		it("should throw an error if 'next' is not a Node or null", () => {
-			expect(() => headNode.setNext("string")).toThrow("next must be a Node or null");
-			expect(() => headNode.setNext(42)).toThrow("next must be a Node or null");
-			expect(() => headNode.setNext({})).toThrow("next must be a Node or null");
-		});
+	it("should not mutate the original path array", () => {
+		node.path[0][0] = 99;
+		expect(path[0][0]).toBe(0);
 	});
 });
