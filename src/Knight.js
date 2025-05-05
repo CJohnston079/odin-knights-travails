@@ -3,7 +3,7 @@ import Queue from "./Queue.js";
 
 class Knight {
 	constructor() {
-		this.moves = [
+		this._moves = [
 			[1, 2],
 			[2, 1],
 			[-1, 2],
@@ -60,7 +60,7 @@ class Knight {
 
 			visited.add(position);
 
-			for (const [dx, dy] of this.moves) {
+			for (const [dx, dy] of this._moves) {
 				const next = [current.position[0] + dx, current.position[1] + dy];
 
 				if (this.isOnBoard(next)) {

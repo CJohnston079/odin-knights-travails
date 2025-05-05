@@ -20,7 +20,7 @@ describe("Knight", () => {
 				[-1, -2],
 				[-2, -1],
 			];
-			expect(knight.moves).toEqual(moveset);
+			expect(knight._moves).toEqual(moveset);
 		});
 	});
 	describe("isOnBoard(x, y)", () => {
