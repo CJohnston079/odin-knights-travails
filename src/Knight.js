@@ -20,6 +20,27 @@ class Knight {
 	}
 
 	travail(start, end) {
+		const isValidCoordinate = ([x, y]) => {
+			const isNumber = Number.isInteger(x) && Number.isInteger(y);
+			const isOnBoard = x >= 0 && x < 8 && y >= 0 && y < 8;
+			return isNumber && isOnBoard;
+		};
+
+		const invalidCoords = [];
+
+		if (!isValidCoordinate(start)) {
+			invalidCoords.push(`start: [${start}]`);
+		}
+
+		if (!isValidCoordinate(end)) {
+			invalidCoords.push(`end: [${end}]`);
+		}
+
+		if (invalidCoords.length) {
+			const errorMessage = `Invalid coordinate${invalidCoords.length > 1 ? "s" : ""}:`;
+			throw new Error(`${errorMessage} ${invalidCoords.join(", ")}`);
+		}
+
 		const queue = new Queue();
 		const visited = new Set();
 
